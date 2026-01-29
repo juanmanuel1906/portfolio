@@ -58,3 +58,5 @@ https://tablericons.com/
 https://bg.ibelick.com/
 https://flowbite.com/
 https://fontsource.org/fonts/
+https://shots.so/
+https://squoosh.app/

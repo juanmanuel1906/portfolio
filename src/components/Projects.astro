@@ -4,6 +4,7 @@ import GitHub from "../../public/assets/icons/GitHub.astro";
 import Javascript from "../../public/assets/icons/Javascript.astro";
 import HTML from "../../public/assets/icons/HTML.astro";
 import CSS from "../../public/assets/icons/CSS.astro";
+import NODE_JS from "../../public/assets/icons/NodeJs.astro"
 import Python from "../../public/assets/icons/Python.astro";
 import Link from "../../public/assets/icons/Link.astro";
 import Php from "../../public/assets/icons/Php.astro";
@@ -40,10 +41,24 @@ const TAGS = {
     class: "bg-white text-black",
     icon: CSS,
   },
+    NODE_JS: {
+    name: "Node JS",
+    class: "bg-white text-black",
+    icon: NODE_JS,
+  },
 };
 
 const PROJECTS = [
-{
+  {
+    title: "Navega Sin Ahogarte",
+    link: "https://navegasinahogarte.com/",
+    description:
+      "Plataforma web para la promoción del bienestar digital en del departamento del Quindío. Incluye test de bienestar digital, posts de ansiedad digital anónimos, métricas y E-Learning.",
+    image: "../../public/assets/img/nsa.jpg",
+    tags: [TAGS.ANGULAR, TAGS.NODE_JS, TAGS.JS],
+    year: "2025",
+  },
+  {
     title: "Pricing Pro",
     description:
       "Plataforma web para la gestión de precios, gestión de usuarios por roles, gestión de permisos y analítica dinámica.",
