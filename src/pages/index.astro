@@ -1,6 +1,5 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Badge from "../components/Badge.astro";
 import LinkedInIcon from "../../public/assets/icons/LinkedIn.astro";
 import GitHubIcon from "../../public/assets/icons/GitHub.astro";
 import MailIcon from "../../public/assets/icons/Mail.astro";
@@ -10,6 +9,9 @@ import SectionContainer from "../components/SectionContainer.astro";
 import BriefCaseIcon from "../../public/assets/icons/BriefCase.astro";
 import CodeIcon from "../../public/assets/icons/Code.astro";
 import Projects from "../components/Projects.astro";
+import SectionTransition from "../animations/SectionTransition.astro";
+import NameTransition from "../animations/NameTransition.astro";
+import Avatar from "../components/Avatar.astro";
 ---
 
 <Layout
@@ -17,64 +19,81 @@ import Projects from "../components/Projects.astro";
   description="Conoce a Juan para crear tu aplicación web, Desarrollador Web. Especializado en crear soluciones únicas"
 >
   <main class="px-4">
-    <SectionContainer class="py-16 md:py-36">
-      <img
-        class="rounded-full shadow-lg size-32 mb-4"
-        src={"https://portfolio-nine-lovat-35.vercel.app/assets/img/informal-photo.jpg"}
-        alt="avatar"
-      />
-      <h1
-        class="text-white text-3xl md:text-4xl lg:text-5xl font-bold flex flex-row gap-x-4 pb-6 lg:pb-10"
+    <SectionContainer
+      class="min-h-screen flex justify-center items-center py-16 md:py-36"
+    >
+      <div
+        class="flex flex-col md:flex-row items-center justify-center gap-y-10 lg:gap-x-20 w-full max-w-full"
       >
-        Hey, soy Juan <a
-          href="https://www.linkedin.com/in/juan-manuel-yate-mendez-340246277/"
-          target="_blank"
-          rel="noopener"
-          class="flex justify-center items-center"
+        <Avatar />
+        <div
+          class="flex flex-col text-center lg:text-left max-w-full lg:max-w-2xl"
         >
-          <Badge>Disponible para trabajar</Badge>
-        </a>
-        <div class="flex justify-center items-center"></div>
-      </h1>
-      <h2 class="text-xl lg:text-2xl text-wrap max-w-[700px]">
-        <span>+3 años de experiencia.</span>
-        <span class="text-blue-400">Desarrollador Web</span>. <span
-          class="text-amber-400">De Armenia, Colombia.</span
-        >
-        <span class="opacity-75">Especializado en crear soluciones web</span>
-      </h2>
+          <h1
+            class="text-white text-2xl md:text-4xl lg:text-5xl font-bold flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 pb-6"
+          >
+            <span class="whitespace-nowrap">
+              Hey, soy <span id="animated-name" class="text-blue-300"
+                >Juan Manuel</span
+              >
+            </span>
+          </h1>
 
-      <nav class="flex gap-4 mt-8 flex-wrap">
-        <SocialPill
-          href="https://www.linkedin.com/in/juan-manuel-yate-mendez-340246277/"
-          ><LinkedInIcon class="size-6" />
-          LinkedIn
-        </SocialPill>
-        <SocialPill href="https://github.com/juanmanuel1906/"
-          ><GitHubIcon class="size-6" />
-          GitHub
-        </SocialPill>
-        <SocialPill href="mailto:juanmanuelyatemendez@gmail.com"
-          ><MailIcon class="size-6" />
-          juanmanuelyatemendez@gmail.com
-        </SocialPill>
-      </nav>
-    </SectionContainer>
+          <h2 class="text-xl lg:text-2xl text-wrap">
+            <span class="opacity-90">+3 años de experiencia.</span>
+            <span class="text-blue-400">Desarrollador Web</span>.
+            <span class="">Especializado en crear soluciones prácticas,</span>
+            <span class="text-amber-400">de Armenia, Colombia</span>.
+          </h2>
+          <nav
+            class="flex flex-wrap gap-4 mt-8 justify-center lg:justify-start w-full"
+          >
+            <SocialPill
+              href="https://www.linkedin.com/in/juan-manuel-yate-mendez-340246277/"
+            >
+              <LinkedInIcon class="size-4 md:size-6" />
+              LinkedIn
+            </SocialPill>
 
-    <SectionContainer id="experiencia">
-      <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
-        <BriefCaseIcon class="size-7" />
-        Experiencia laboral
-      </h2>
-      <Experience />
-    </SectionContainer>
+            <SocialPill href="https://github.com/juanmanuel1906/">
+              <GitHubIcon class="size-4 md:size-6" />
+              GitHub
+            </SocialPill>
 
-    <SectionContainer id="proyectos">
-      <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
-        <CodeIcon class="size-7" />
-        Proyectos
-      </h2>
-      <Projects />
+            <SocialPill href="mailto:juanmanuelyatemendez@gmail.com">
+              <MailIcon class="size-4 md:size-6" />
+              <span class="md:hidden">Contáctame</span>
+              <span class="hidden md:inline"
+                >juanmanuelyatemendez@gmail.com</span
+              >
+            </SocialPill>
+          </nav>
+        </div>
+      </div>
     </SectionContainer>
   </main>
+  <SectionContainer
+    id="experiencia"
+    class="flex flex-col justify-center py-16 md:py-36 min-h-screen"
+  >
+    <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
+      <BriefCaseIcon class="size-7" />
+      Experiencia laboral
+    </h2>
+    <Experience />
+  </SectionContainer>
+
+  <SectionContainer
+    id="proyectos"
+    class="flex flex-col justify-center py-16 md:py-36 min-h-screen"
+  >
+    <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
+      <CodeIcon class="size-7" />
+      Proyectos
+    </h2>
+    <Projects />
+  </SectionContainer>
 </Layout>
+
+<SectionTransition />
+<NameTransition />

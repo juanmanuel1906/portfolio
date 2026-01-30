@@ -1,0 +1,51 @@
+<div class="flex-shrink-0 relative group neon-orbit-box">
+    <img
+        src="../../public/assets/img/avatar.jpg"
+        alt="Juan Manuel Yate Méndez"
+        class="size-52 md:size-64 lg:size-80 rounded-full object-cover relative"
+    />
+</div>
+
+<style>
+  /* Definimos la animación de rotación simple */
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Configuración del contenedor para el pseudo-elemento */
+  .neon-orbit-box {
+    /* Asegura que el pseudo-elemento se posicione relativo a esto */
+    position: relative; 
+    /* un borde base sutil y oscuro para que el recorrido se note un poco */
+    border-radius: 9999px;
+    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.1); 
+  }
+
+  /* EL PUNTO NEÓN QUE GIRA */
+  .neon-orbit-box::before {
+    content: '';
+    position: absolute;
+    /* 'inset' negativo hace que el anillo sea más grande que la imagen */
+    inset: -5px; 
+    border-radius: 9999px; /* Círculo perfecto */
+    z-index: 0; /* Se va detrás de la imagen (que tiene z-10) */
+    
+    /* 
+       Creamos un punto de luz usando un gradiente radial posicionado en la parte superior (at top).
+       El color es el azul de Tailwind (blue-400 aprox) que se desvanece a transparente.
+    */
+    background: radial-gradient(circle at top, rgba(96, 165, 250, 1) 0%, transparent 15%, transparent 100%);
+    
+    /* Esto añade el "brillo" difuminado (glow) alrededor del punto */
+    filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.8));
+    
+    /* Aplicamos la animación de giro */
+    /* 3s = velocidad de la vuelta. Ajusta según tu gusto */
+    animation: spin 4s linear infinite;
+  }
+</style>

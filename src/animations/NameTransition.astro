@@ -1,0 +1,51 @@
+---
+/* NameTransition.astro */
+---
+<script>
+  import { gsap } from "gsap";
+
+  function initNameAnimation() {
+    const nameElement: any = document.querySelector("#animated-name");
+    
+    if (nameElement && !nameElement.dataset.animated) {
+      const text = nameElement.textContent || "";
+      nameElement.innerHTML = ""; // Limpiamos para insertar los spans
+
+      // Dividimos el texto en spans para animar letra por letra
+      [...text].forEach((char) => {
+        const span = document.createElement("span");
+        span.textContent = char === " " ? "\u00A0" : char;
+        span.style.display = "inline-block";
+        span.classList.add("name-char");
+        nameElement.appendChild(span);
+      });
+
+      // Marcamos como animado para evitar duplicados
+      nameElement.dataset.animated = "true";
+
+      // Animación de GSAP
+      gsap.from(".name-char", {
+        opacity: 0,
+        y: 40,
+        filter: "blur(15px)",
+        scale: 1.5,
+        duration: 1,
+        stagger: 0.08,
+        ease: "power4.out",
+        delay: 1.2, // Esperamos a que la cortina azul de SectionTransition se retire
+      });
+    }
+  }
+
+  // Ejecutar al cargar
+  document.addEventListener("DOMContentLoaded", initNameAnimation);
+  // Por si usas transiciones de Astro (View Transitions)
+  document.addEventListener("astro:page-load", initNameAnimation);
+</script>
+
+<style is:global>
+  .name-char {
+    /* Mantenemos el kerning correcto */
+    white-space: pre;
+  }
+</style>
