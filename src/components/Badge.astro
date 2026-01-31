@@ -1,13 +1,12 @@
----
-/* Badge */
----
 <div class="relative inline-flex overflow-hidden rounded-full p-[1px] focus:outline-none">
   <span 
     class="absolute inset-[-1000%] animate-[spin_3s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#51E5FF_0%,#4484FB_50%,#51E5FF_100%)]"
   ></span>
   
   <span 
-    class="inline-flex h-full w-full items-center justify-center rounded-full bg-slate-950/90 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl"
+    class="inline-flex h-full w-full items-center justify-center rounded-full px-3 py-1 text-sm font-medium backdrop-blur-3xl
+           bg-white/80 text-blue-800 
+           dark:bg-slate-950/90 dark:text-white"
   >
     <slot />
   </span>

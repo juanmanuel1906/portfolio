@@ -1,30 +1,31 @@
 ---
-import ExperienceItem from "../components/ExperienceItem.astro";
+/* components/Experience.astro */
+import ExperienceItem from "./ExperienceItem.astro";
 
 const EXPERIENCE = [
   {
-    date: "Actualmente...",
-    title: "Developer - Haggen It",
-    description:
-      "Desarrollador de diferentes aplicaciones del lado del servidor como del cliente, usando tecnologías como Angular, Python, PHP en combinación con GCP.",
+    date: "Julio 2023",
+    title: "Developer",
+    company: "Haggen It",
+    description: "Lidero el desarrollo de aplicaciones escalables integrando Angular y Node.js con arquitecturas en GCP. Mi enfoque está en la optimización de procesos del lado del servidor y la creación de interfaces reactivas de alta disponibilidad.",
+    techs: ["Angular", "Python", "GCP", "MYSQL", 'PostgresSQL'],
+    isMain: true,
   },
   {
     date: "Septiembre 2022",
-    title: "Fullstack Developer - Neuroimágenes",
-    description:
-      "Responsable de la creación de la página web desde 0%, como practicante, me desempeñé como desarrollador de frontend y backend, así como administrador de las redes sociales de la empresa",
-    link: "https://neuroimagenes.com/inicio",
-    redirection: '#neuro-project'
-  },
+    title: "Fullstack Developer",
+    company: "Neuroimágenes - IPS",
+    description: "Arquitecto y desarrollador principal de la plataforma institucional. Transformé los requerimientos desde 0% en un ecosistema digital robusto para una de las IPS líderes en el Quindío.",
+    techs: ["PHP", "Angular", "Fullstack"],
+    isMain: false,
+  }
 ];
 ---
 
-<ol class="relative border-s border-gray-200 ml-3">
-  {
-    EXPERIENCE.map((experience) => (
-      <li class="mb-10 ms-4">
-        <ExperienceItem {...experience} />
-      </li>
-    ))
-  }
-</ol>
+<div class="grid grid-cols-1 md:grid-cols-12 gap-4 auto-rows-fr">
+  {EXPERIENCE.map((exp) => (
+    <div class={exp.isMain ? "md:col-span-8" : "md:col-span-4"}>
+      <ExperienceItem {...exp} />
+    </div>
+  ))}
+</div>

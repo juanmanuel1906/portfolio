@@ -1,57 +1,102 @@
 ---
-export interface Props {
-    title: string
-    description: string
-    link?: string
-    date: string
-    redirection?: string
-}
-const { title, description, link, date, redirection } = Astro.props;
+/* components/ExperienceItem.astro */
+const { title, company, description, link, date, techs, isMain } = Astro.props;
 ---
 
-<div
-  class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white dark:border-gray-900 dark:bg-gray-700"
->
-</div>
-<time
-  class="mb-1 text-sm font-normal leading-none text-amber-400"
-  >{date}</time
->
-<h3 class="text-lg font-semibold text-blue-400 mt-2">
-  {title}
-</h3>
-<p class="mb-4 text-base font-normal text-gray-100 text-pretty">
-  {description}
-</p>
-{
-    link && (
-        <a
-        href={redirection}
-        class={`
-            inline-flex items-center
-            px-4 py-2 
-            text-sm font-medium text-gray-900 
-            bg-white 
-            border border-gray-200 
-            rounded-lg 
-            hover:bg-gray-100 hover:text-indigo-700 
-            focus:z-10 focus:ring-4 focus:outline-none focus:ring-gray-100 focus:text-blue-700 
-            dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 dark:focus:ring-gray-700`}
-        >Saber más... <svg
-            class="w-3 h-3 ms-2 rtl:rotate-180"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 14 10"
-        >
-            <path
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M1 5h12m0 0L9 1m4 4L9 9"
-            />
-        </svg>
+<div class={`
+  experience-card h-full relative group p-6 rounded-[2rem] overflow-hidden border transition-all duration-500
+  ${isMain 
+    ? "bg-blue-600/5 border-blue-500/30 dark:border-blue-400/20" 
+    : "bg-white/5 border-gray-200 dark:border-white/10"}
+  hover:shadow-[0_0_40px_rgba(59,130,246,0.15)]
+`}>
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+
+  <div class="relative z-10 flex flex-col h-full">
+    <div class="flex justify-between items-start mb-6">
+      <span class="text-xs font-mono font-bold py-1 px-3 rounded-full bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">
+        {date}
+      </span>
+      {isMain && (
+        <span class="flex items-center gap-x-1.5">
+          <span class="size-2 rounded-full bg-green-600 dark:bg-green-500 animate-pulse"></span>
+          <span class="text-[10px] font-bold text-green-600 dark:text-green-500 uppercase tracking-tighter">Live</span>
+        </span>
+      )}
+    </div>
+
+    <h3 class={`${isMain ? 'text-3xl' : 'text-xl'} font-black text-gray-900 dark:text-white leading-tight mb-1`}>
+      {title}
+    </h3>
+    <p class="text-blue-600 dark:text-blue-300 font-medium text-lg mb-4">{company}</p>
+
+    <p class={`text-gray-600 dark:text-gray-400 leading-relaxed mb-6 ${isMain ? 'text-base' : 'text-sm'}`}>
+      {description}
+    </p>
+
+    <div class="mt-auto">
+      <div class="flex flex-wrap gap-2 mb-6">
+        {techs?.map((tech: any) => (
+          <span class="px-2 py-1 text-[10px] rounded-lg bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-gray-700 dark:text-gray-300">
+            {tech}
+          </span>
+        ))}
+      </div>
+
+      {link && (
+        <a href={link} target="_blank" class="inline-flex items-center text-sm font-bold text-blue-600 dark:text-blue-400 hover:underline gap-1">
+          Case Study <svg class="size-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </a>
-    )
-}
+      )}
+    </div>
+  </div>
+</div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+  
+  gsap.registerPlugin(ScrollTrigger);
+
+  document.addEventListener("astro:page-load", () => {
+    const cards = document.querySelectorAll(".experience-card");
+    
+    cards.forEach(card => {
+      // --- Animación de Entrada y Salida (Revelación) ---
+      gsap.from(card, {
+        opacity: 0,
+        y: 40,
+        scale: 0.9,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: card,
+          start: "top 90%", // Comienza cuando la parte superior de la carta llega al 90% de la pantalla
+          end: "bottom 10%", // Termina cuando la parte inferior llega al 10%
+          // Play al entrar, Reverse al salir por arriba, Play al entrar de nuevo, Reverse al salir por abajo
+          toggleActions: "play reverse play reverse" 
+        }
+      });
+
+      // --- Efecto de inclinación (Tilt) 3D ---
+      card.addEventListener("mousemove", (e: any) => {
+        const { clientX, clientY } = e;
+        const { left, top, width, height } = card.getBoundingClientRect();
+        const x = (clientX - left) / width - 0.5;
+        const y = (clientY - top) / height - 0.5;
+        
+        gsap.to(card, {
+          rotationY: x * 10,
+          rotationX: -y * 10,
+          transformPerspective: 1000,
+          ease: "power2.out",
+          duration: 0.5
+        });
+      });
+      
+      card.addEventListener("mouseleave", () => {
+        gsap.to(card, { rotationY: 0, rotationX: 0, ease: "power2.out", duration: 0.5 });
+      });
+    });
+  });
+</script>

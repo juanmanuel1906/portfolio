@@ -12,6 +12,9 @@ import Projects from "../components/Projects.astro";
 import SectionTransition from "../animations/SectionTransition.astro";
 import NameTransition from "../animations/NameTransition.astro";
 import Avatar from "../components/Avatar.astro";
+import Badge from "../components/Badge.astro";
+import Education from "../components/Education.astro";
+import Certificate from "../../public/assets/icons/Certificate.astro";
 ---
 
 <Layout
@@ -32,18 +35,31 @@ import Avatar from "../components/Avatar.astro";
           <h1
             class="text-white text-2xl md:text-4xl lg:text-5xl font-bold flex flex-wrap items-center justify-center lg:justify-start gap-x-4 gap-y-2 pb-6"
           >
-            <span class="whitespace-nowrap">
-              Hey, soy <span id="animated-name" class="text-blue-300"
-                >Juan Manuel</span
+            <span class="whitespace-nowrap text-black dark:text-white">
+              Hey, soy <span
+                id="animated-name"
+                class="text-blue-700 dark:text-blue-300">Juan Manuel</span
               >
             </span>
+            <a
+              href="https://www.linkedin.com/..."
+              target="_blank"
+              rel="noopener"
+              class="flex justify-center items-center hover:scale-105 transition md:mt-1 whitespace-nowrap"
+            >
+              <Badge>Disponible para trabajar</Badge>
+            </a>
           </h1>
 
-          <h2 class="text-xl lg:text-2xl text-wrap">
+          <h2 class="text-xl lg:text-2xl text-wrap text-black dark:text-white">
             <span class="opacity-90">+3 años de experiencia.</span>
-            <span class="text-blue-400">Desarrollador Web</span>.
+            <span class="text-blue-600 dark:text-blue-400"
+              >Desarrollador Web</span
+            >.
             <span class="">Especializado en crear soluciones prácticas,</span>
-            <span class="text-amber-400">de Armenia, Colombia</span>.
+            <span class="text-amber-600 dark:text-amber-400"
+              >de Armenia, Colombia</span
+            >.
           </h2>
           <nav
             class="flex flex-wrap gap-4 mt-8 justify-center lg:justify-start w-full"
@@ -76,8 +92,22 @@ import Avatar from "../components/Avatar.astro";
     id="experiencia"
     class="flex flex-col justify-center py-16 md:py-36 min-h-screen"
   >
-    <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
-      <BriefCaseIcon class="size-7" />
+    <h2
+      class="text-4xl font-semibold mb-6 flex gap-x-3 items-center text-black dark:text-white"
+    >
+      <Certificate class="size-9" />
+      Educación
+    </h2>
+    <Education />
+  </SectionContainer>
+  <SectionContainer
+    id="experiencia"
+    class="flex flex-col justify-center py-16 md:py-36 min-h-screen"
+  >
+    <h2
+      class="text-4xl font-semibold mb-6 flex gap-x-3 items-center text-black dark:text-white"
+    >
+      <BriefCaseIcon class="size-9" />
       Experiencia laboral
     </h2>
     <Experience />
@@ -87,8 +117,10 @@ import Avatar from "../components/Avatar.astro";
     id="proyectos"
     class="flex flex-col justify-center py-16 md:py-36 min-h-screen"
   >
-    <h2 class="text-3xl font-semibold mb-6 flex gap-x-3 items-center">
-      <CodeIcon class="size-7" />
+    <h2
+      class="text-4xl font-semibold mb-6 flex gap-x-3 items-center text-black dark:text-white"
+    >
+      <CodeIcon class="size-9" />
       Proyectos
     </h2>
     <Projects />

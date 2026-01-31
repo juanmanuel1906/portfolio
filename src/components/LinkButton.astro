@@ -5,7 +5,13 @@ const { href } = Astro.props
 <a
   href={href}
   role="link"
-  class="inline-flex items-center justify-center gap-2 px-3 py-2 space-x-2 text-base text-white transition bg-gray-800 border border-gray-600 focus-visible:ring-yellow-500/80 text-md hover:bg-gray-800 hover:border-gray-900 group max-w-fit rounded-xl hover:text-white focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-white focus-visible:ring-offset-2 active:bg-black"
+  class="inline-flex items-center justify-center gap-2 px-3 py-2 space-x-2 text-base transition group max-w-fit rounded-xl focus:outline-none focus-visible:outline-none focus-visible:ring focus-visible:ring-offset-2
+    bg-gray-100 border border-gray-300 text-gray-800 
+    hover:bg-gray-200 hover:border-gray-400 hover:text-black
+    active:bg-gray-300 focus-visible:ring-blue-500
+    dark:bg-gray-800 dark:border-gray-600 dark:text-white 
+    dark:hover:bg-gray-900 dark:hover:border-gray-700
+    dark:active:bg-black dark:focus-visible:ring-yellow-500/80"
 >
   <slot />
 </a>

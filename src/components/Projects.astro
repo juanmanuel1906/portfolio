@@ -113,7 +113,6 @@ const PROJECTS = [
     title: "Neuroimágenes - IPS",
     description:
       "Creado desde cero, el cual provee importante información acerca de una de las IPS más importantes del Quindío.",
-    link: "https://neuroimagenes.com/inicio",
     image:
       "https://portfolio-nine-lovat-35.vercel.app/assets/img/neuroimagenes.webp",
     tags: [TAGS.ANGULAR, TAGS.PHP],
@@ -133,14 +132,15 @@ const PROJECTS = [
 ];
 ---
 
-<div class="flex flex-col gap-y-16" id="neuro-project">
+<div class="flex flex-col gap-y-16">
   {
     PROJECTS.map(({ image, title, description, tags, link, github, year }) => (
-      <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+      /* Añadimos la clase 'project-article' para el selector de GSAP */
+      <article class="project-article flex flex-col px-1 space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0 opacity-0">
         <div class="w-full md:w-1/2">
           <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
             <img
-              alt="img"
+              alt={title}
               class="object-cover object-top w-full h-56 transition duration-500 sm:h-full md:scale-110 md:group-hover:scale-105"
               src={image}
             />
@@ -148,16 +148,14 @@ const PROJECTS = [
         </div>
 
         <div class="w-full md:w-1/2 md:max-w-lg">
-          <h3 class="text-2xl font-bold text-white-800 dark:text-gray-100">
+          <h3 class="text-2xl font-bold text-black dark:text-gray-100">
             {title}
           </h3>
           <div class="flex flex-wrap mt-2">
             <ul class="flex flex-row mb-2 gap-x-2">
               {tags.map((tag) => (
                 <li>
-                  <span
-                    class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-                  >
+                  <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}>
                     <tag.icon class="size-4" />
                     {tag.name}
                   </span>
@@ -165,9 +163,9 @@ const PROJECTS = [
               ))}
             </ul>
 
-            <div class="mt-2 text-white-700 dark:text-gray-400">
+            <div class="mt-2 text-black dark:text-gray-400">
               {description} <br />
-              <span class="text-amber-400">{year}</span>
+              <span class="text-blue-700 dark:text-amber-400 font-bold">{year}</span>
             </div>
             <footer class="flex items-end justify-start mt-4 gap-x-4">
               {github && (
@@ -189,3 +187,41 @@ const PROJECTS = [
     ))
   }
 </div>
+
+<script>
+  import { gsap } from "gsap";
+  import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  function initProjectsAnimation() {
+    const articles = document.querySelectorAll(".project-article");
+
+    articles.forEach((article) => {
+      gsap.fromTo(
+        article,
+        { 
+          opacity: 0, 
+          y: 50, 
+          scale: 0.95 
+        },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.8,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: article,
+            start: "top 90%", // Empieza cuando el artículo entra al 90% de la pantalla
+            end: "bottom 10%", // Se revierte al salir por arriba
+            toggleActions: "play reverse play reverse",
+          },
+        }
+      );
+    });
+  }
+
+  // Ejecutar al cargar la página y con View Transitions de Astro
+  document.addEventListener("astro:page-load", initProjectsAnimation);
+</script>

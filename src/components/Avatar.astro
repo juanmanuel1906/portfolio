@@ -5,47 +5,61 @@
         class="size-52 md:size-64 lg:size-80 rounded-full object-cover relative"
     />
 </div>
-
 <style>
-  /* Definimos la animación de rotación simple */
-  @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
+  /* =========================================
+     DEFINICIÓN DE COLORES POR TEMA
+     ========================================= */
+  :root {
+    /* Usamos azules más profundos y saturados para que resalten sobre blanco */
+    --orbit-ring-base: rgba(37, 99, 235, 0.15);
+    --orbit-glow-color: rgba(30, 64, 175, 1);
+    --orbit-glow-spread: rgba(59, 130, 246, 0.6);
   }
 
-  /* Configuración del contenedor para el pseudo-elemento */
+  .dark {
+    /* Usamos azules claros y brillantes que "encienden" el fondo negro */
+    --orbit-ring-base: rgba(96, 165, 250, 0.1);
+    --orbit-glow-color: rgba(96, 165, 250, 1);
+    --orbit-glow-spread: rgba(96, 165, 250, 0.8);
+  }
+
+
+  /* =========================================
+     ANIMACIÓN Y ESTRUCTURA
+     ========================================= */
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
   .neon-orbit-box {
-    /* Asegura que el pseudo-elemento se posicione relativo a esto */
     position: relative; 
-    /* un borde base sutil y oscuro para que el recorrido se note un poco */
     border-radius: 9999px;
-    box-shadow: 0 0 0 2px rgba(96, 165, 250, 0.1); 
+    /* Usamos la variable para el riel base. 
+       En modo claro será más oscuro y visible. */
+    box-shadow: 0 0 0 3px var(--orbit-ring-base); 
+    /* Opcional: un fondo sutil detrás de la imagen para dar profundidad en modo claro */
+    background-color: var(--orbit-ring-base); 
   }
 
   /* EL PUNTO NEÓN QUE GIRA */
   .neon-orbit-box::before {
     content: '';
     position: absolute;
-    /* 'inset' negativo hace que el anillo sea más grande que la imagen */
-    inset: -5px; 
-    border-radius: 9999px; /* Círculo perfecto */
-    z-index: 0; /* Se va detrás de la imagen (que tiene z-10) */
+    inset: -6px; 
+    border-radius: 9999px; 
+    z-index: -1; /* Detrás de la imagen */
     
     /* 
-       Creamos un punto de luz usando un gradiente radial posicionado en la parte superior (at top).
-       El color es el azul de Tailwind (blue-400 aprox) que se desvanece a transparente.
+       El punto se verá más sólido y definido sobre blanco.
     */
-    background: radial-gradient(circle at top, rgba(96, 165, 250, 1) 0%, transparent 15%, transparent 100%);
+    background: radial-gradient(circle at top, var(--orbit-glow-color) 0%, transparent 20%, transparent 100%);
     
-    /* Esto añade el "brillo" difuminado (glow) alrededor del punto */
-    filter: drop-shadow(0 0 10px rgba(96, 165, 250, 0.8));
+    /* El filtro usa un color de dispersión más saturado en modo claro 
+       para crear un "halo" vibrante alrededor del punto.
+    */
+    filter: drop-shadow(0 0 12px var(--orbit-glow-spread));
     
-    /* Aplicamos la animación de giro */
-    /* 3s = velocidad de la vuelta. Ajusta según tu gusto */
     animation: spin 4s linear infinite;
   }
 </style>

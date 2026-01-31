@@ -1,10 +1,20 @@
-<header
-  class="fixed top-0 backdrop-blur flex items-center justify-center w-full mx-auto z-10"
->
-  <nav class="flex flex-row gap-x-10 opacity-80">
-    <a href="#top">Inicio</a>
-    <!--<a href="#sobre-mi">Sobre mí</a>-->
-    <a href="#experiencia">Experiencia</a>
-    <a href="#proyectos">Proyectos</a>
+---
+import ThemeSelector from "./ThemeSelector.astro";
+---
+
+<header class="fixed top-0 z-10 flex items-center justify-center w-full mt-2 px-2">
+  <nav class="flex px-3 md:px-6 py-1 text-xs md:text-sm font-medium rounded-full justify-center items-center gap-x-2 md:gap-x-5 bg-white/5 backdrop-blur-md border border-white/10 shadow-lg transition-all">
+    
+    <div class="flex flex-row gap-x-3 md:gap-x-6 py-1">
+      <a class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#top">Inicio</a>
+      <a class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#experiencia">Experiencia</a>
+      <a class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors" href="#proyectos">Proyectos</a>
+    </div>
+
+    <div class="w-[1px] h-4 bg-white/20 mx-1"></div>
+
+    <div class="flex items-center gap-x-2 md:gap-x-3">
+      <ThemeSelector />
+    </div>
   </nav>
 </header>
